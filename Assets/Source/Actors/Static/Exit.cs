@@ -19,7 +19,8 @@ namespace Assets.Source.Actors.Static
             if (anotherActor is Player)
             {
                 var player = (Player)anotherActor;
-                player.LevelClearCount += 1;
+                player.LevelClearCount++;
+                ActorManager.Singleton.DestroyAllActors();             
                 MapLoader.LoadMap(player.LevelClearCount);
             }
             return false;
