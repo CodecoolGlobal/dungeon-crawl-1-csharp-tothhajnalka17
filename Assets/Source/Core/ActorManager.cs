@@ -19,7 +19,7 @@ namespace DungeonCrawl.Core
         public static ActorManager Singleton { get; private set; }
 
         private SpriteAtlas _spriteAtlas;
-        private HashSet<Actor> _allActors;
+        public HashSet<Actor> _allActors;
 
         private void Awake()
         {
@@ -75,7 +75,14 @@ namespace DungeonCrawl.Core
             var actors = _allActors.ToArray();
 
             foreach (var actor in actors)
-                DestroyActor(actor);
+            {
+                if (actor is Player) { }
+                else
+                {
+                    DestroyActor(actor);
+                }
+            }
+            
         }
 
         /// <summary>
