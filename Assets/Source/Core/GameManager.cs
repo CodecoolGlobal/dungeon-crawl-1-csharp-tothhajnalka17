@@ -10,6 +10,7 @@ namespace DungeonCrawl.Core
     {
         private void Start()
         {
+            Player player = ActorManager.Singleton.Spawn<Player>(0,0);
             MapLoader.LoadMap(0);
         }
     }
