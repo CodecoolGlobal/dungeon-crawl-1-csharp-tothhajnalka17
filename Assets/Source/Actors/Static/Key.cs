@@ -1,4 +1,5 @@
-﻿using DungeonCrawl.Actors;
+﻿using Assets.Source.Core;
+using DungeonCrawl.Actors;
 using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Core;
 using System;
@@ -26,6 +27,7 @@ namespace Assets.Source.Actors.Static
             {
                 Player player = (Player)anotherActor;
                 player.AddToInvetory(this);
+                UserInterface.Singleton.SetText("You GrinGotts that key Hairy!", UserInterface.TextPosition.MiddleCenter);
                 ActorManager.Singleton.DestroyActor(this);
             }
             return false;
