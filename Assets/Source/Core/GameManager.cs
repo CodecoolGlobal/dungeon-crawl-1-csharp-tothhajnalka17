@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DungeonCrawl.Actors.Characters;
 
 namespace DungeonCrawl.Core
 {
@@ -9,7 +10,7 @@ namespace DungeonCrawl.Core
     {
         private void Start()
         {
-            MapLoader.LoadMap(1);
+            MapLoader.LoadMap(0);
         }
     }
 }
