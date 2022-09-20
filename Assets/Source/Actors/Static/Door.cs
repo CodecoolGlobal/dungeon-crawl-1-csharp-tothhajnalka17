@@ -1,4 +1,6 @@
 ﻿using DungeonCrawl.Actors;
+using DungeonCrawl.Actors.Characters;
+using DungeonCrawl.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,18 @@ namespace Assets.Source.Actors.Static
         public override bool Detectable => true;
         public override bool OnCollision(Actor anotherActor)
         {
-
+            if (anotherActor is Player)
+            {
+                Player player = (Player)anotherActor;
+                foreach (var item in player.Inventory)
+                {
+                    if (item is Key)
+                    {
+                        ActorManager.Singleton.DestroyActor(this);
+                        ActorManager.Singleton.Spawn<OpenDoor>(this.Position);
+                    }
+                }
+            }
             return false;
         }
     }

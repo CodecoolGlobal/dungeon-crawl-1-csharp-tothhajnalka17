@@ -22,15 +22,13 @@ namespace Assets.Source.Actors.Static
 
         public override bool OnCollision(Actor anotherActor)
         {
-            Debug.Log("were here");
             if (anotherActor is Player)
             {
                 Player player = (Player)anotherActor;
-                
                 player.AddToInvetory(this);
                 ActorManager.Singleton.DestroyActor(this);
             }
-            return base.OnCollision(anotherActor);
+            return false;
         }
     }
 }
