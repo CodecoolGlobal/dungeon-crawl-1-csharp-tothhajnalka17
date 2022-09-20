@@ -1,6 +1,9 @@
 ﻿using DungeonCrawl.Core;
 using System.Collections.Generic;
 using UnityEngine;
+using DungeonCrawl.Actors.Static;
+using Assets.Source.Actors.Static;
+using Assets.Source.Core;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -11,7 +14,7 @@ namespace DungeonCrawl.Actors.Characters
         public List<Actor> Inventory = new List<Actor>();
         protected override void OnUpdate(float deltaTime)
         {
-
+            CameraController.Singleton.Position = this.Position;
             if (Input.GetKeyDown(KeyCode.W))
             {
                 // Move up
