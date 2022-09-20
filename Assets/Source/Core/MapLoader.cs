@@ -1,4 +1,5 @@
-﻿using DungeonCrawl.Actors.Characters;
+﻿using Assets.Source.Actors.Static;
+using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Actors.Static;
 using System;
 using System.Text.RegularExpressions;
@@ -58,6 +59,9 @@ namespace DungeonCrawl.Core
                 case 's':
                     ActorManager.Singleton.Spawn<Skeleton>(position);
                     ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'd':
+                    ActorManager.Singleton.Spawn<Door>(position);
                     break;
                 case ' ':
                     break;
