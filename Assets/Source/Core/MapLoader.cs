@@ -68,6 +68,10 @@ namespace DungeonCrawl.Core
                     ActorManager.Singleton.Spawn<Key>(position);
                     ActorManager.Singleton.Spawn<Floor>(position);
                     break;
+                case 'e':
+                    ActorManager.Singleton.Spawn<Exit>(position);
+                    break;
+
                 case ' ':
                     break;
                 default:

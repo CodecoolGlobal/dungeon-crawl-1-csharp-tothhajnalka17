@@ -23,8 +23,10 @@ namespace Assets.Source.Actors.Static
                 {
                     if (item is Key)
                     {
+                        player.Inventory.Remove(item);
                         ActorManager.Singleton.DestroyActor(this);
                         ActorManager.Singleton.Spawn<OpenDoor>(this.Position);
+                        break;
                     }
                 }
             }

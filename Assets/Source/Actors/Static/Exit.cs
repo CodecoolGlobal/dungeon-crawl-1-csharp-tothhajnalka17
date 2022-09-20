@@ -9,14 +9,20 @@ using System.Threading.Tasks;
 
 namespace Assets.Source.Actors.Static
 {
-    public class OpenDoor : Door
+    public class Exit : Actor
     {
-        public override int DefaultSpriteId => 147;
-        public override string DefaultName => "OpenDoor";
+        public override int DefaultSpriteId => 432;
+        public override string DefaultName => "Exit";
         public override bool Detectable => true;
         public override bool OnCollision(Actor anotherActor)
         {
-            return true;
+            if (anotherActor is Player)
+            {
+                var player = (Player)anotherActor;
+                player.LevelClearCount += 1;
+                MapLoader.LoadMap(player.LevelClearCount);
+            }
+            return false;
         }
     }
 }

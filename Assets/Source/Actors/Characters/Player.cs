@@ -6,9 +6,12 @@ namespace DungeonCrawl.Actors.Characters
 {
     public class Player : Character
     {
+        public int LevelClearCount = 0;
+
         public List<Actor> Inventory = new List<Actor>();
         protected override void OnUpdate(float deltaTime)
         {
+
             if (Input.GetKeyDown(KeyCode.W))
             {
                 // Move up
@@ -36,7 +39,6 @@ namespace DungeonCrawl.Actors.Characters
 
         public override bool OnCollision(Actor anotherActor)
         {
-            Debug.Log("were here");
             return false;
         }
 
