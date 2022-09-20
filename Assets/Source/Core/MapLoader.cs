@@ -54,7 +54,13 @@ namespace DungeonCrawl.Core
                     ActorManager.Singleton.Spawn<Floor>(position);
                     break;
                 case 'p':
-                    ActorManager.Singleton.Spawn<Player>(position);
+                    foreach (var actor in ActorManager.Singleton._allActors)
+                    {
+                        if (actor is Player)
+                        {
+                            actor.Position = position;
+                        }
+                    }
                     ActorManager.Singleton.Spawn<Floor>(position);
                     break;
                 case 's':
@@ -70,6 +76,9 @@ namespace DungeonCrawl.Core
                     break;
                 case 'e':
                     ActorManager.Singleton.Spawn<Exit>(position);
+                    break;
+                case 'w':
+                    ActorManager.Singleton.Spawn<Wand>(position);
                     break;
 
                 case ' ':
