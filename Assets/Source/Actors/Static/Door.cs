@@ -11,8 +11,11 @@ namespace Assets.Source.Actors.Static
     {
         public override int DefaultSpriteId => 146;
         public override string DefaultName => "Door";
-        public override bool Detectable => false;
+        public override bool Detectable => true;
+        public override bool OnCollision(Actor anotherActor)
+        {
 
-
+            return false;
+        }
     }
 }

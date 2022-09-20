@@ -18,6 +18,7 @@ namespace DungeonCrawl.Core
         /// <param name="id"></param>
         public static void LoadMap(int id)
         {
+            Debug.Log("Yaaay");
             var lines = Regex.Split(Resources.Load<TextAsset>($"map_{id}").text, "\r\n|\r|\n");
 
             // Read map size from the first line
@@ -65,6 +66,7 @@ namespace DungeonCrawl.Core
                     break;
                 case 'k':
                     ActorManager.Singleton.Spawn<Key>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
                     break;
                 case ' ':
                     break;
