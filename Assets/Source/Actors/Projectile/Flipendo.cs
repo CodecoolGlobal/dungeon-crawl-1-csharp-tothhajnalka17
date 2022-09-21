@@ -34,21 +34,28 @@ namespace Assets.Source.Actors.Projectile
         public override bool OnCollision(Actor anotherActor)
         {
             Debug.Log($"Collisiong with {anotherActor}");
-            if (anotherActor is Player)
+            if (anotherActor is Skeleton)
             {
-                var player = (Player)anotherActor;
-                player.ApplyDamage(Damage);
+                var enemy = (Skeleton)anotherActor;
+                enemy.ApplyDamage(Damage);
             }
-
-            ActorManager.Singleton._allActors.Remove(this);
-            ActorManager.Singleton.DestroyActor(this);
-            return true;
+            if (anotherActor.OnCollision(this))
+            {
+                return false;
+            }
+            else
+            {
+                ActorManager.Singleton._allActors.Remove(this);
+                ActorManager.Singleton.DestroyActor(this);
+                return false;
+            }
+            
         }
 
         protected override void OnUpdate(float deltatime)
         {
             LifeTime++;
-            if (LifeTime > 36)
+            if (LifeTime > 24)
             {
                 TryMove(Direction);
                 LifeTime = 0;
