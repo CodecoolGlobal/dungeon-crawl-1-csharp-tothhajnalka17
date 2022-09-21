@@ -33,11 +33,15 @@ namespace Assets.Source.Actors.Projectile
         }
         public override bool OnCollision(Actor anotherActor)
         {
-            Debug.Log($"Collisiong with {anotherActor}");
             if (anotherActor is Player)
             {
                 var player = (Player)anotherActor;
                 player.ApplyDamage(Damage);
+            }
+            if (anotherActor is Skeleton)
+            {
+                var enemy = (Skeleton)anotherActor;
+                enemy.ApplyDamage(Damage);
             }
             
             ActorManager.Singleton._allActors.Remove(this);

@@ -1,5 +1,4 @@
-﻿using Assets.Source.Core;
-using DungeonCrawl.Actors.Characters;
+﻿using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Actors;
 using DungeonCrawl.Core;
 using System;
@@ -7,23 +6,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DungeonCrawl.Actors.Static;
-using DungeonCrawl.Actors.Items;
 using DungeonCrawl;
 using UnityEngine;
+using DungeonCrawl.Actors.Static;
 
 namespace Assets.Source.Actors.Projectile
 {
-    public class Flipendo : Projectile
+    public class Obliviate : Projectile
     {
-        public override int DefaultSpriteId => 666;
-        public override string DefaultName => "Flipendo";
+        public int Duration;
+        public override int DefaultSpriteId => 554;
+        public override string DefaultName => "Obliviate";
         public override bool Detectable => true;
-        public Flipendo()
+        public Obliviate()
         {
+            Duration = 30;
             Direction = DefaultDirection;
             LifeTime = 0;
-            Damage = 10;
+            Damage = 7;
+            if (ActorManager.Singleton.GetActorAt(Position) != null)
+            {
+                OnCollision(ActorManager.Singleton.GetActorAt(Position));
+            }
         }
         public override bool OnCollision(Actor anotherActor)
         {
@@ -31,27 +35,22 @@ namespace Assets.Source.Actors.Projectile
             {
                 var enemy = (Skeleton)anotherActor;
                 enemy.ApplyDamage(Damage);
-            }
-            if (anotherActor.OnCollision(this))
-            {
-                return false;
-            }
-            else
-            {
                 ActorManager.Singleton._allActors.Remove(this);
                 ActorManager.Singleton.DestroyActor(this);
-                return false;
             }
-            
+            ActorManager.Singleton._allActors.Remove(this);
+            ActorManager.Singleton.DestroyActor(this);
+            return false;
+
         }
 
         protected override void OnUpdate(float deltatime)
         {
-            LifeTime++;
-            if (LifeTime > 24)
+            Duration--;
+            if (Duration < 1)
             {
-                TryMove(Direction);
-                LifeTime = 0;
+                ActorManager.Singleton._allActors.Remove(this);
+                ActorManager.Singleton.DestroyActor(this);
             }
         }
     }

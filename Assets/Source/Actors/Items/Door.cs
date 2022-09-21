@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Source.Actors.Items;
+using Assets.Source.Core;
 
 namespace Assets.Source.Actors.Static
 {
@@ -28,6 +29,9 @@ namespace Assets.Source.Actors.Static
                         player.Inventory.Remove(item);
                         ActorManager.Singleton.DestroyActor(this);
                         ActorManager.Singleton.Spawn<OpenDoor>(this.Position);
+                        UserInterface.Singleton.SetText("Keylohomora", UserInterface.TextPosition.BottomCenter);
+                        CameraController.Singleton.Size -= 2;
+                        player.DistanceTimer = 3;
                         break;
                     }
                 }
