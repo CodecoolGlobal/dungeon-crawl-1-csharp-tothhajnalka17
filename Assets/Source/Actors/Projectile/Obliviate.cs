@@ -13,14 +13,16 @@ namespace Assets.Source.Actors.Projectile
 {
     public class Obliviate : Projectile
     {
+        public int Duration;
         public override int DefaultSpriteId => 442;
         public override string DefaultName => "Obliviate";
         public override bool Detectable => true;
         public Obliviate()
         {
+            Duration = 30;
             Direction = DefaultDirection;
             LifeTime = 0;
-            Damage = 10;
+            Damage = 7;
         }
         public override bool OnCollision(Actor anotherActor)
         {
@@ -29,6 +31,7 @@ namespace Assets.Source.Actors.Projectile
                 var enemy = (Skeleton)anotherActor;
                 enemy.ApplyDamage(Damage);
             }
+            
             if (anotherActor.OnCollision(this))
             {
                 return true;
@@ -44,6 +47,12 @@ namespace Assets.Source.Actors.Projectile
 
         protected override void OnUpdate(float deltatime)
         {
+            Duration--;
+            if (Duration < 1)
+            {
+                ActorManager.Singleton._allActors.Remove(this);
+                ActorManager.Singleton.DestroyActor(this);
+            }
         }
     }
 }
