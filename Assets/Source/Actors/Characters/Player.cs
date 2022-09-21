@@ -48,6 +48,26 @@ namespace DungeonCrawl.Actors.Characters
                 if (DistanceTimer > 0) DistanceTimer--;
             }
 
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                List<Skeleton> skeletons = new List<Skeleton>();
+                for (int i = -1; i <= 1; i++)
+                {
+                    for (int j = -1; j <= 1; j++)
+                    {
+                        var currentActor = ActorManager.Singleton.GetActorAt((Position.x + i, Position.y + j));
+                        if (currentActor is Skeleton)
+                        {
+                            skeletons.Add((Skeleton)currentActor);
+                        }
+                    }
+                }
+                foreach (Skeleton enemy in skeletons)
+                {
+                    enemy.ApplyDamage(5);
+                }
+            }
+
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
         }
 
