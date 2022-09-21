@@ -13,13 +13,10 @@ namespace DungeonCrawl.Actors.Characters
         }
         public override bool OnCollision(Actor anotherActor)
         {
-            foreach (var actor in ActorManager.Singleton._allActors)
+            if (anotherActor is Player)
             {
-                if (actor is Player)
-                {
-                    var player = (Player)actor;
-                    player.ApplyDamage(Damage);
-                }
+            var player = (Player)anotherActor;
+            player.ApplyDamage(Damage);
             }
             return false;
         }
