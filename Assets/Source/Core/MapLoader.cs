@@ -19,7 +19,6 @@ namespace DungeonCrawl.Core
         /// <param name="id"></param>
         public static void LoadMap(int id)
         {
-            Debug.Log("Yaaay");
             var lines = Regex.Split(Resources.Load<TextAsset>($"map_{id}").text, "\r\n|\r|\n");
 
             // Read map size from the first line
