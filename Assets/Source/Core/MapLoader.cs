@@ -1,9 +1,11 @@
 ﻿using Assets.Source.Actors.Static;
 using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Actors.Static;
+using DungeonCrawl.Actors.Items;
 using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using Assets.Source.Actors.Items;
 
 namespace DungeonCrawl.Core
 {
