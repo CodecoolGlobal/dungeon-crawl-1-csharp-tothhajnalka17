@@ -90,18 +90,33 @@ namespace DungeonCrawl.Actors.Characters
             if (Input.GetKeyDown(KeyCode.F))
             {
                 List<Actor> neighbours = new List<Actor>();
-                for (int i = -1; i <= 1; i++)
+                if (ObliviateCooldown < 1)
                 {
-                    for (int j = -1; j <= 1; j++)
+                    for (int i = -1; i <= 1; i++)
                     {
-                        var position = (Position.x + i, Position.y + j);
-                        ActorManager.Singleton.Spawn<Obliviate>(position);
+                        for (int j = -1; j <= 1; j++)
+                        {
+                            var position = (Position.x + i, Position.y + j);
+
+                            ActorManager.Singleton.Spawn<Obliviate>(position);
+                        }
                     }
+                    ObliviateCooldown = 200;
                 }
             }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
+            if (WandEquipped)
+            {
+                UserInterface.Singleton.SetText($"E:{FlipendoCooldown} F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+            }
+            else
+            {
+                UserInterface.Singleton.SetText($"F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+            }
+           
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
             if (FlipendoCooldown > 0) FlipendoCooldown--;
+            if (ObliviateCooldown > 0) ObliviateCooldown--;
         }
 
         public override bool OnCollision(Actor anotherActor)
