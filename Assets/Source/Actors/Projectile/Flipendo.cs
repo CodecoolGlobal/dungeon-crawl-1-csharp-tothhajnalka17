@@ -27,7 +27,6 @@ namespace Assets.Source.Actors.Projectile
         }
         public override bool OnCollision(Actor anotherActor)
         {
-            Debug.Log($"Collisiong with {anotherActor}");
             if (anotherActor is Skeleton)
             {
                 var enemy = (Skeleton)anotherActor;
