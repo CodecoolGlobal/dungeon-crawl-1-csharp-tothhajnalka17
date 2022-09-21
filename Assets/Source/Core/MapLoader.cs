@@ -62,6 +62,9 @@ namespace DungeonCrawl.Core
                         }
                     }
                     ActorManager.Singleton.Spawn<Floor>(position);
+                    // Set default camera size and position
+                    CameraController.Singleton.Size = 5;
+                    CameraController.Singleton.Position = position;
                     break;
                 case 's':
                     ActorManager.Singleton.Spawn<Skeleton>(position);

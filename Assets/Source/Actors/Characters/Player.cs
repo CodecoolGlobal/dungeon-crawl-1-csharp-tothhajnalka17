@@ -47,6 +47,8 @@ namespace DungeonCrawl.Actors.Characters
                 TryMove(Direction.Right);
                 if (DistanceTimer > 0) DistanceTimer--;
             }
+
+            CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
         }
 
         public override bool OnCollision(Actor anotherActor)
