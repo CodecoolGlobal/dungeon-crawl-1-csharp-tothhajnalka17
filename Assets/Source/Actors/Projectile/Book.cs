@@ -9,18 +9,22 @@ using System.Text;
 using System.Threading.Tasks;
 using DungeonCrawl.Actors.Static;
 using DungeonCrawl.Actors.Items;
+using DungeonCrawl;
 
 namespace Assets.Source.Actors.Projectile
 {
     public class Book : Actor
     {
         public int Damage;
+
+        public Direction Direction;
         public override int DefaultSpriteId => 559;
         public override string DefaultName => "Key";
         public override bool Detectable => true;
 
-        public Book()
+        public Book(Direction direction)
         {
+            Direction = direction;
             Damage = 10;
         }
         public override bool OnCollision(Actor anotherActor)
