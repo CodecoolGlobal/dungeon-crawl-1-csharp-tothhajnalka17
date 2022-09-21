@@ -97,11 +97,14 @@ namespace DungeonCrawl.Actors.Characters
                         for (int j = -1; j <= 1; j++)
                         {
                             var position = (Position.x + i, Position.y + j);
-
-                            ActorManager.Singleton.Spawn<Obliviate>(position);
+                            var spell = ActorManager.Singleton.Spawn<Obliviate>(position);
+                            if (ActorManager.Singleton.GetActorAt(position) != null)
+                            {
+                                spell.OnCollision(ActorManager.Singleton.GetActorAt(position));
+                            }
                         }
                     }
-                    ObliviateCooldown = 200;
+                    ObliviateCooldown = 360;
                 }
             }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
