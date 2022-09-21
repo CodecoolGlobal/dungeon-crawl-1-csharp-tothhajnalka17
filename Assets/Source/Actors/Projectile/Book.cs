@@ -33,7 +33,6 @@ namespace Assets.Source.Actors.Projectile
         }
         public override bool OnCollision(Actor anotherActor)
         {
-            Debug.Log($"Collisiong with {anotherActor}");
             if (anotherActor is Player)
             {
                 var player = (Player)anotherActor;
