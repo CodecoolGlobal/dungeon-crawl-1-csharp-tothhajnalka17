@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DungeonCrawl;
 using UnityEngine;
+using DungeonCrawl.Actors.Static;
 
 namespace Assets.Source.Actors.Projectile
 {
     public class Obliviate : Projectile
     {
         public int Duration;
-        public override int DefaultSpriteId => 442;
+        public override int DefaultSpriteId => 554;
         public override string DefaultName => "Obliviate";
         public override bool Detectable => true;
         public Obliviate()
@@ -23,6 +24,10 @@ namespace Assets.Source.Actors.Projectile
             Direction = DefaultDirection;
             LifeTime = 0;
             Damage = 7;
+            if (ActorManager.Singleton.GetActorAt(Position) != null)
+            {
+                OnCollision(ActorManager.Singleton.GetActorAt(Position));
+            }
         }
         public override bool OnCollision(Actor anotherActor)
         {
@@ -30,18 +35,12 @@ namespace Assets.Source.Actors.Projectile
             {
                 var enemy = (Skeleton)anotherActor;
                 enemy.ApplyDamage(Damage);
-            }
-            
-            if (anotherActor.OnCollision(this))
-            {
-                return true;
-            }
-            else
-            {
                 ActorManager.Singleton._allActors.Remove(this);
                 ActorManager.Singleton.DestroyActor(this);
-                return true;
             }
+            ActorManager.Singleton._allActors.Remove(this);
+            ActorManager.Singleton.DestroyActor(this);
+            return false;
 
         }
 

@@ -97,10 +97,13 @@ namespace DungeonCrawl.Actors.Characters
                         for (int j = -1; j <= 1; j++)
                         {
                             var position = (Position.x + i, Position.y + j);
-                            var spell = ActorManager.Singleton.Spawn<Obliviate>(position);
                             if (ActorManager.Singleton.GetActorAt(position) != null)
                             {
-                                spell.OnCollision(ActorManager.Singleton.GetActorAt(position));
+                                ActorManager.Singleton.Spawn<Obliviate>(position).OnCollision(ActorManager.Singleton.GetActorAt(position));
+                            }
+                            else
+                            {
+                                ActorManager.Singleton.Spawn<Obliviate>(position);
                             }
                         }
                     }
