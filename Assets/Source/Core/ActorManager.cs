@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DungeonCrawl.Actors;
+using DungeonCrawl.Actors.Characters;
 using UnityEngine;
 using UnityEngine.U2D;
+using UnityEngine.UIElements;
 
 namespace DungeonCrawl.Core
 {
@@ -17,7 +19,7 @@ namespace DungeonCrawl.Core
         public static ActorManager Singleton { get; private set; }
 
         private SpriteAtlas _spriteAtlas;
-        private HashSet<Actor> _allActors;
+        public HashSet<Actor> _allActors;
 
         private void Awake()
         {
@@ -42,6 +44,7 @@ namespace DungeonCrawl.Core
         {
             return _allActors.FirstOrDefault(actor => actor.Detectable && actor.Position == position);
         }
+        
 
         /// <summary>
         ///     Returns actor of specific subclass present at given position (returns null if no actor is present)
@@ -72,7 +75,14 @@ namespace DungeonCrawl.Core
             var actors = _allActors.ToArray();
 
             foreach (var actor in actors)
-                DestroyActor(actor);
+            {
+                if (actor is Player) { }
+                else
+                {
+                    DestroyActor(actor);
+                }
+            }
+            
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using DungeonCrawl.Actors.Characters;
+﻿using Assets.Source.Actors.Static;
+using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Actors.Static;
 using System;
 using System.Text.RegularExpressions;
@@ -17,6 +18,7 @@ namespace DungeonCrawl.Core
         /// <param name="id"></param>
         public static void LoadMap(int id)
         {
+            Debug.Log("Yaaay");
             var lines = Regex.Split(Resources.Load<TextAsset>($"map_{id}").text, "\r\n|\r|\n");
 
             // Read map size from the first line
@@ -35,6 +37,9 @@ namespace DungeonCrawl.Core
                     SpawnActor(character, (x, -y));
                 }
             }
+
+            // Set default camera size and position
+            CameraController.Singleton.Size = 6;
         }
 
         private static void SpawnActor(char c, (int x, int y) position)
@@ -48,7 +53,14 @@ namespace DungeonCrawl.Core
                     ActorManager.Singleton.Spawn<Floor>(position);
                     break;
                 case 'p':
-                    ActorManager.Singleton.Spawn<Player>(position);
+                    foreach (var actor in ActorManager.Singleton._allActors)
+                    {
+                        if (actor is Player)
+                        {
+                            actor.Position = position;
+                            CameraController.Singleton.Position = position;
+                        }
+                    }
                     ActorManager.Singleton.Spawn<Floor>(position);
                     // Set default camera size and position
                     CameraController.Singleton.Size = 5;
@@ -56,6 +68,20 @@ namespace DungeonCrawl.Core
                     break;
                 case 's':
                     ActorManager.Singleton.Spawn<Skeleton>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'd':
+                    ActorManager.Singleton.Spawn<Door>(position);
+                    break;
+                case 'k':
+                    ActorManager.Singleton.Spawn<Key>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'e':
+                    ActorManager.Singleton.Spawn<Exit>(position);
+                    break;
+                case 'w':
+                    ActorManager.Singleton.Spawn<Wand>(position);
                     ActorManager.Singleton.Spawn<Floor>(position);
                     break;
                 case ' ':

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DungeonCrawl.Actors.Characters;
 
 namespace DungeonCrawl.Core
 {
@@ -9,7 +10,9 @@ namespace DungeonCrawl.Core
     {
         private void Start()
         {
-            MapLoader.LoadMap(1);
+            CameraController.Singleton.Position = (0,0);
+            Player player = ActorManager.Singleton.Spawn<Player>(0,0);
+            MapLoader.LoadMap(0);
         }
     }
 }

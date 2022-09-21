@@ -1,4 +1,6 @@
-﻿namespace DungeonCrawl.Actors.Static
+﻿using Unity.Mathematics;
+
+namespace DungeonCrawl.Actors.Static
 {
     public class Wall : Actor
     {
