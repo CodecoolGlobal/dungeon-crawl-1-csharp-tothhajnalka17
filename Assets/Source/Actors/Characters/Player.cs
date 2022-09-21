@@ -13,7 +13,8 @@ namespace DungeonCrawl.Actors.Characters
     {
         public int DistanceTimer = 0;
         public int LevelClearCount = 0;
-        public int ECooldown = 0;
+        public int FlipendoCooldown = 0;
+        public int ObliviateCooldown = 0;
         public bool WandEquipped = false;
         private Direction _direction;
 
@@ -78,37 +79,29 @@ namespace DungeonCrawl.Actors.Characters
                 }
                 if (WandEquipped == true)
                 {
-                    if(ECooldown < 1)
+                    if(FlipendoCooldown < 1)
                     {
-                        Launch();
-                        ECooldown = 100;
+                        Launch("Flipendo");
+                        FlipendoCooldown = 100;
                     }
                 }
             }
 
-                if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                List<Skeleton> skeletons = new List<Skeleton>();
+                List<Actor> neighbours = new List<Actor>();
                 for (int i = -1; i <= 1; i++)
                 {
                     for (int j = -1; j <= 1; j++)
                     {
-                        var currentActor = ActorManager.Singleton.GetActorAt((Position.x + i, Position.y + j));
-                        if (currentActor is Skeleton)
-                        {
-                            skeletons.Add((Skeleton)currentActor);
-                        }
+                        var position = (Position.x + i, Position.y + j);
+                        ActorManager.Singleton.Spawn<Obliviate>(position);
                     }
-                }
-                foreach (Skeleton enemy in skeletons)
-                {
-                    enemy.ApplyDamage(Damage);
-                    UserInterface.Singleton.SetText($"{enemy.DefaultName} took {Damage} damage.", UserInterface.TextPosition.BottomCenter);
                 }
             }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
-            if (ECooldown > 0) ECooldown--;
+            if (FlipendoCooldown > 0) FlipendoCooldown--;
         }
 
         public override bool OnCollision(Actor anotherActor)
@@ -126,10 +119,18 @@ namespace DungeonCrawl.Actors.Characters
             Inventory.Add(item);
         }
 
-        public void Launch()
+        public void Launch(string spellName)
         {
-            var spell = ActorManager.Singleton.Spawn<Flipendo>(Position);
-            spell.Direction = _direction;
+            if (spellName == "Flipendo")
+            {
+                var spell = ActorManager.Singleton.Spawn<Flipendo>(Position);
+                spell.Direction = _direction;
+            }
+            if (spellName == "Obliviate")
+            {
+                var spell = ActorManager.Singleton.Spawn<Obliviate>(Position);
+                spell.Direction = _direction;
+            }
         }
 
         public override int DefaultSpriteId => 24;
