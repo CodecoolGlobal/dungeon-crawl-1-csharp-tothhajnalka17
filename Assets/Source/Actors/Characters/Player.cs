@@ -4,6 +4,8 @@ using UnityEngine;
 using DungeonCrawl.Actors.Static;
 using Assets.Source.Actors.Static;
 using Assets.Source.Core;
+using Assets.Source.Actors.Items;
+using Assets.Source.Actors.Projectile;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -11,6 +13,9 @@ namespace DungeonCrawl.Actors.Characters
     {
         public int DistanceTimer = 0;
         public int LevelClearCount = 0;
+        public int ECooldown = 0;
+        public bool WandEquipped = false;
+        private Direction _direction;
 
         public List<Actor> Inventory = new List<Actor>();
 
@@ -18,6 +23,7 @@ namespace DungeonCrawl.Actors.Characters
         {
             Damage = 5;
             Health = 50;
+            _direction = Direction.Up;
         }
         protected override void OnUpdate(float deltaTime)
         {
@@ -30,6 +36,7 @@ namespace DungeonCrawl.Actors.Characters
             {
                 // Move up
                 TryMove(Direction.Up);
+                _direction = Direction.Up;
                 if (DistanceTimer > 0) DistanceTimer--;
             }
 
@@ -37,6 +44,7 @@ namespace DungeonCrawl.Actors.Characters
             {
                 // Move down
                 TryMove(Direction.Down);
+                _direction = Direction.Down;
                 if (DistanceTimer > 0) DistanceTimer--;
             }
 
@@ -44,6 +52,7 @@ namespace DungeonCrawl.Actors.Characters
             {
                 // Move left
                 TryMove(Direction.Left);
+                _direction = Direction.Left;
                 if (DistanceTimer > 0) DistanceTimer--;
             }
 
@@ -51,10 +60,32 @@ namespace DungeonCrawl.Actors.Characters
             {
                 // Move right
                 TryMove(Direction.Right);
+                _direction = Direction.Right;
                 if (DistanceTimer > 0) DistanceTimer--;
             }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (WandEquipped != true)
+                {
+                    foreach (var item in Inventory)
+                    {
+                        if (item is Wand)
+                        {
+                            WandEquipped = true;
+                        }
+                    }
+                }
+                if (WandEquipped == true)
+                {
+                    if(ECooldown < 1)
+                    {
+                        Launch();
+                        ECooldown = 100;
+                    }
+                }
+            }
 
-            if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F))
             {
                 List<Skeleton> skeletons = new List<Skeleton>();
                 for (int i = -1; i <= 1; i++)
@@ -76,6 +107,7 @@ namespace DungeonCrawl.Actors.Characters
             }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
+            if (ECooldown > 0) ECooldown--;
         }
 
         public override bool OnCollision(Actor anotherActor)
@@ -91,6 +123,12 @@ namespace DungeonCrawl.Actors.Characters
         public void AddToInvetory(Actor item)
         {
             Inventory.Add(item);
+        }
+
+        public void Launch()
+        {
+            var spell = ActorManager.Singleton.Spawn<Flipendo>(Position);
+            spell.Direction = _direction;
         }
 
         public override int DefaultSpriteId => 24;
