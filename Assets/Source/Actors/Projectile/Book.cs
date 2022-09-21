@@ -39,6 +39,11 @@ namespace Assets.Source.Actors.Projectile
                 var player = (Player)anotherActor;
                 player.ApplyDamage(Damage);
             }
+            if (anotherActor is Skeleton)
+            {
+                var enemy = (Skeleton)anotherActor;
+                enemy.ApplyDamage(Damage);
+            }
             
             ActorManager.Singleton._allActors.Remove(this);
             ActorManager.Singleton.DestroyActor(this);
