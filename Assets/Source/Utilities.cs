@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DungeonCrawl
 {
@@ -27,6 +28,14 @@ namespace DungeonCrawl
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
             }
+        }
+
+        public static Direction RandomDirection()
+        {
+            Random randomDirection = new Random();
+            Direction[] directions = { Direction.Up, Direction.Down, Direction.Left, Direction.Right }; 
+            int randomIndex = randomDirection.Next(directions.Length);
+            return directions[randomIndex];
         }
     }
 }
