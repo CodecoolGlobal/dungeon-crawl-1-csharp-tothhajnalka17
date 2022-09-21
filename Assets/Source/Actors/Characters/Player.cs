@@ -24,6 +24,7 @@ namespace DungeonCrawl.Actors.Characters
             CameraController.Singleton.Position = this.Position;
             if (DistanceTimer == 0)
             {
+                CameraController.Singleton.Size = 6;
                 UserInterface.Singleton.SetText(" ", UserInterface.TextPosition.BottomCenter);
             }
             if (Input.GetKeyDown(KeyCode.W))
