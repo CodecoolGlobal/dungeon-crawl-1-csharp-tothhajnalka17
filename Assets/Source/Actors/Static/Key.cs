@@ -27,7 +27,7 @@ namespace Assets.Source.Actors.Static
             {
                 Player player = (Player)anotherActor;
                 player.AddToInvetory(this);
-                UserInterface.Singleton.SetText("You GrinGotts that key Hairy!", UserInterface.TextPosition.MiddleCenter);
+                UserInterface.Singleton.SetText("You GrinGotts that key Hairy!", UserInterface.TextPosition.BottomCenter);
                 player.DistanceTimer = 5;
                 ActorManager.Singleton.DestroyActor(this);
             }

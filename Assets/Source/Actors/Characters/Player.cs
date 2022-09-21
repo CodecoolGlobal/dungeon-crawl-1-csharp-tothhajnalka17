@@ -13,12 +13,18 @@ namespace DungeonCrawl.Actors.Characters
         public int LevelClearCount = 0;
 
         public List<Actor> Inventory = new List<Actor>();
+
+        public Player()
+        {
+            Damage = 5;
+            Health = 50;
+        }
         protected override void OnUpdate(float deltaTime)
         {
             CameraController.Singleton.Position = this.Position;
             if (DistanceTimer == 0)
             {
-                UserInterface.Singleton.SetText(" ", UserInterface.TextPosition.MiddleCenter);
+                UserInterface.Singleton.SetText(" ", UserInterface.TextPosition.BottomCenter);
             }
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -64,10 +70,13 @@ namespace DungeonCrawl.Actors.Characters
                 }
                 foreach (Skeleton enemy in skeletons)
                 {
-                    enemy.ApplyDamage(5);
+                    enemy.ApplyDamage(Damage);
+                    UserInterface.Singleton.SetText($"{enemy.DefaultName} took {Damage} damage.", UserInterface.TextPosition.BottomCenter);
                 }
-            }
 
+                DistanceTimer--;
+            }
+            UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
         }
 
