@@ -10,48 +10,49 @@ using System.Threading.Tasks;
 using DungeonCrawl.Actors.Static;
 using DungeonCrawl.Actors.Items;
 using DungeonCrawl;
+using UnityEngine;
 
 namespace Assets.Source.Actors.Projectile
 {
     public class Book : Actor
     {
-        public int Damage;
+        public int LifeTime = 0;
+        public int Damage = 10;
 
         public Direction Direction;
-        public override int DefaultSpriteId => 559;
-        public override string DefaultName => "Key";
+        public override int DefaultSpriteId => 729;
+        public override string DefaultName => "Book";
         public override bool Detectable => true;
 
-        public Book(Direction direction)
+        public Direction DefaultDirection = Direction.Up;
+
+        public Book()
         {
-            Direction = direction;
+            Direction = DefaultDirection;
             Damage = 10;
         }
         public override bool OnCollision(Actor anotherActor)
         {
+            Debug.Log($"Collisiong with {anotherActor}");
             if (anotherActor is Player)
             {
-                Player player = (Player)anotherActor;
+                var player = (Player)anotherActor;
                 player.ApplyDamage(Damage);
-                ActorManager.Singleton.DestroyActor(this);
             }
-            else if (anotherActor is Skeleton)
-            {
-                Skeleton skeleton = (Skeleton)anotherActor;
-                skeleton.ApplyDamage(Damage);
-                ActorManager.Singleton.DestroyActor(this);
-            }
-            else if (anotherActor is Wall || anotherActor is Item)
-            {
-                ActorManager.Singleton.DestroyActor(this);
-            }
-
-            return false;
+            
+            ActorManager.Singleton._allActors.Remove(this);
+            ActorManager.Singleton.DestroyActor(this);
+            return true;
         }
 
         protected override void OnUpdate(float deltatime)
         {
-
+            LifeTime++;
+            if (LifeTime > 36)
+            {
+                TryMove(Direction);
+                LifeTime = 0;
+            }
         }
     }
 }
