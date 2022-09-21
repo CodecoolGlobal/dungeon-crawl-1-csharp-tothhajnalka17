@@ -73,8 +73,6 @@ namespace DungeonCrawl.Actors.Characters
                     enemy.ApplyDamage(Damage);
                     UserInterface.Singleton.SetText($"{enemy.DefaultName} took {Damage} damage.", UserInterface.TextPosition.BottomCenter);
                 }
-
-                DistanceTimer--;
             }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
