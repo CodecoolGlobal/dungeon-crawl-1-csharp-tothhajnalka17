@@ -4,6 +4,10 @@ namespace DungeonCrawl.Actors.Characters
 {
     public class Skeleton : Character
     {
+        public Skeleton()
+        {
+            Health = 30;
+        }
         public override bool OnCollision(Actor anotherActor)
         {
             return false;
