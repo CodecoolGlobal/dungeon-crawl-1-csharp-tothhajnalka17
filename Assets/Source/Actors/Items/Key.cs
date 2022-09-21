@@ -13,18 +13,13 @@ namespace Assets.Source.Actors.Items
         public override int DefaultSpriteId => 559;
         public override string DefaultName => "Key";
         public override bool Detectable => true;
-        public override bool IsItem()
-        {
-            return true;
-        }
-
         public override bool OnCollision(Actor anotherActor)
         {
             if (anotherActor is Player)
             {
                 Player player = (Player)anotherActor;
                 player.AddToInvetory(this);
-                UserInterface.Singleton.SetText("You GrinGotts that key Hairy!", UserInterface.TextPosition.MiddleCenter);
+                UserInterface.Singleton.SetText("You GrinGotts that key Hairy!", UserInterface.TextPosition.BottomCenter);
                 player.DistanceTimer = 5;
                 ActorManager.Singleton.DestroyActor(this);
             }

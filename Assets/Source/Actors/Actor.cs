@@ -5,10 +5,6 @@ namespace DungeonCrawl.Actors
 {
     public abstract class Actor : MonoBehaviour
     {
-        public virtual bool IsItem()
-        {
-            return false;
-        }
         public (int x, int y) Position
         {
             get => _position;

@@ -1,10 +1,9 @@
-﻿using Assets.Source.Actors.Static;
-using DungeonCrawl.Actors.Characters;
-using DungeonCrawl.Actors.Static;
-using DungeonCrawl.Actors.Items;
+﻿using DungeonCrawl.Actors.Characters;
+using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
-using UnityEngine;
+using DungeonCrawl.Actors.Static;
+using Assets.Source.Actors.Static;
 using Assets.Source.Actors.Items;
 
 namespace DungeonCrawl.Core
