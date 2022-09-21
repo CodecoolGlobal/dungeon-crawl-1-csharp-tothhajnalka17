@@ -14,18 +14,11 @@ using UnityEngine;
 
 namespace Assets.Source.Actors.Projectile
 {
-    public class Book : Actor
+    public class Book : Projectile
     {
-        public int LifeTime = 0;
-        public int Damage = 10;
-
-        public Direction Direction;
         public override int DefaultSpriteId => 729;
         public override string DefaultName => "Book";
         public override bool Detectable => true;
-
-        public Direction DefaultDirection = Direction.Up;
-
         public Book()
         {
             Direction = DefaultDirection;

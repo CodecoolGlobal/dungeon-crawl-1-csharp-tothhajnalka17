@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,22 +53,32 @@
     <UnityVersion>2021.1.24f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Source\Actors\Static\Wall.cs" />
     <Compile Include="Assets\Source\Actors\Static\Floor.cs" />
+    <Compile Include="Assets\Source\Actors\Projectile\Projectile.cs" />
     <Compile Include="Assets\Source\Core\CameraController.cs" />
     <Compile Include="Assets\Source\Core\UserInterface.cs" />
-    <Compile Include="Assets\Source\Actors\Static\OpenDoor.cs" />
     <Compile Include="Assets\Source\Actors\Actor.cs" />
+    <Compile Include="Assets\Source\Actors\Static\Exit.cs" />
     <Compile Include="Assets\Source\Actors\Characters\Player.cs" />
-    <Compile Include="Assets\Source\Actors\Static\Door.cs" />
+    <Compile Include="Assets\Source\Actors\Items\Key.cs" />
+    <Compile Include="Assets\Source\Actors\Items\Door.cs" />
     <Compile Include="Assets\Source\Actors\Characters\Character.cs" />
-    <Compile Include="Assets\Source\Actors\Static\Key.cs" />
+    <Compile Include="Assets\Source\Actors\Projectile\Obliviate.cs" />
+    <Compile Include="Assets\Source\Actors\Items\OpenDoor.cs" />
+    <Compile Include="Assets\Source\Actors\Items\Item.cs" />
     <Compile Include="Assets\Source\Actors\Characters\Skeleton.cs" />
     <Compile Include="Assets\Source\Core\MapLoader.cs" />
     <Compile Include="Assets\Source\Utilities.cs" />
+    <Compile Include="Assets\Source\Actors\Projectile\Flipendo.cs" />
     <Compile Include="Assets\Source\Core\GameManager.cs" />
+    <Compile Include="Assets\Source\Actors\Static\Launcher.cs" />
+    <Compile Include="Assets\Source\Actors\Items\Wand.cs" />
     <Compile Include="Assets\Source\Core\ActorManager.cs" />
-    <Compile Include="Assets\Source\Actors\Static\Exit.cs" />
+    <Compile Include="Assets\Source\Actors\Projectile\Book.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -93,6 +103,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Resources\map_1.txt" />
     <None Include="Assets\Resources\map_0.txt" />
+    <None Include="Assets\Resources\map_2.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
