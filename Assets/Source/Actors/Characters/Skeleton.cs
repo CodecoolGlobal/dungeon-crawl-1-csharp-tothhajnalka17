@@ -89,12 +89,15 @@ namespace DungeonCrawl.Actors.Characters
                             MoveTimer = 250;
                             destination = (0, 0);
                         }
-                        if (destination.Item1 - Position.x != 0 && destination.Item1 < Position.x)
+                        if (destination != (0, 0))
                         {
-                            Debug.Log("Player is Left of me I need to move Left");
-                            TryMove(Direction.Left);
-                            MoveTimer = 250;
-                            destination = (0, 0);
+                            if (destination.Item1 - Position.x != 0 && destination.Item1 < Position.x)
+                            {
+                                Debug.Log("Player is Left of me I need to move Left");
+                                TryMove(Direction.Left);
+                                MoveTimer = 250;
+                                destination = (0, 0);
+                            }
                         }
                     }
                 }
