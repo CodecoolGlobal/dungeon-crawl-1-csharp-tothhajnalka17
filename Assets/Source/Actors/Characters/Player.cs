@@ -171,89 +171,21 @@ namespace DungeonCrawl.Actors.Characters
             }
             if (spellName == "Blink")
             {
-                int distance = 5;
-                if (_direction == Direction.Up)
+                var normalVector = Utilities.ToVector(_direction);
+                for (int i = 5; i > 2; i--)
                 {
-                    var possiblePosition = (Position.x, Position.y + distance);
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                    }
-                    else
+                    var possiblePosition = (Position.x + (normalVector.x * i), Position.y + (normalVector.y * i));
+                    if (!(ActorManager.Singleton.GetActorAt(possiblePosition) is Wall) && ActorManager.Singleton.GetAnyActorAt(possiblePosition) != null)
                     {
                         Position = possiblePosition;
-                        BlinkCooldown = 600;
-                    }
-                }
-                else if (_direction == Direction.Down)
-                {
-                var possiblePosition = (Position.x, Position.y - distance);
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                    }
-                    else
-                    {
-                            Position = possiblePosition;
-                            BlinkCooldown = 600;
-                    }
-                }
-                else if (_direction == Direction.Left)
-                {
-                var possiblePosition = (Position.x - distance, Position.y);
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                    }
-                    else
-                    {
-                        Position = possiblePosition;
-                        BlinkCooldown = 600;
-                    }
-                }
-                else if (_direction == Direction.Right)
-                {
-                    var possiblePosition = (Position.x + distance, Position.y);
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                        distance--;             
-                    }
-                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
-                    {
-                    }
-                    else
-                    {
-                        Position = possiblePosition;
-                        BlinkCooldown = 600;
+                        BlinkCooldown = 666;
+                        break;
                     }
                 }
             }
         }
+                
+        
         
 
         public override int DefaultSpriteId => 24;
