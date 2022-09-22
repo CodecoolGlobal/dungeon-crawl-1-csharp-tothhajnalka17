@@ -51,18 +51,11 @@ namespace Assets.Source.Actors.Projectile
                 ActorManager.Singleton.DestroyActor(this);
             }
             LifeTime++;
-            RemoveTimer--;
             if (LifeTime > 60)
             {
 
                 TryMove(Direction);
                 LifeTime = 0;
-            }
-            if (RemoveTimer < 1)
-            {
-                Debug.Log("Book Despawned");
-                ActorManager.Singleton._allActors.Remove(this);
-                ActorManager.Singleton.DestroyActor(this);
             }
         }
     }
