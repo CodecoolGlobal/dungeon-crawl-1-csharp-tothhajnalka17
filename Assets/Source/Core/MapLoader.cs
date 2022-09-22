@@ -104,6 +104,10 @@ namespace DungeonCrawl.Core
                     ActorManager.Singleton.Spawn<Teleport>(position);
                     ActorManager.Singleton.Spawn<Floor>(position);
                     break;
+                case 'r':
+                    ActorManager.Singleton.Spawn<Resetter>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
                 case ' ':
                     break;
                 default:
