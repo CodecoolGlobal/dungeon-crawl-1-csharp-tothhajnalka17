@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DungeonCrawl.Actors.Static;
-using Assets.Source.Actors.Static;
 using Assets.Source.Core;
 using Assets.Source.Actors.Items;
 using Assets.Source.Actors.Projectile;
@@ -62,6 +61,7 @@ namespace DungeonCrawl.Actors.Characters
                 TryMove(Direction.Left);
                 _direction = Direction.Left;
                 if (DistanceTimer > 0) DistanceTimer--;
+                SetSprite(1003);
             }
 
             if (Input.GetKeyDown(KeyCode.D))
@@ -70,6 +70,7 @@ namespace DungeonCrawl.Actors.Characters
                 TryMove(Direction.Right);
                 _direction = Direction.Right;
                 if (DistanceTimer > 0) DistanceTimer--;
+                SetSprite(1000);
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -220,7 +221,7 @@ namespace DungeonCrawl.Actors.Characters
             return true;
         }
 
-        public override int DefaultSpriteId => 24;
+        public override int DefaultSpriteId => 1000;
         public override string DefaultName => "Player";
     }
 }

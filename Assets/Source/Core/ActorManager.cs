@@ -19,6 +19,7 @@ namespace DungeonCrawl.Core
         public static ActorManager Singleton { get; private set; }
 
         private SpriteAtlas _spriteAtlas;
+        private SpriteAtlas _pigAtlas;
         public HashSet<Actor> _allActors;
 
         private void Awake()
@@ -33,6 +34,7 @@ namespace DungeonCrawl.Core
 
             _allActors = new HashSet<Actor>();
             _spriteAtlas = Resources.Load<SpriteAtlas>("Spritesheet");
+            _pigAtlas = Resources.Load<SpriteAtlas>("Pig");
         }
 
         /// <summary>
@@ -97,6 +99,10 @@ namespace DungeonCrawl.Core
         /// <returns></returns>
         public Sprite GetSprite(int id)
         {
+            if (id > 999)
+            {
+                return _pigAtlas.GetSprite($"guinea_pig_{id - 1000}");
+            }
             return _spriteAtlas.GetSprite($"kenney_transparent_{id}");
         }
 
