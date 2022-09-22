@@ -17,6 +17,8 @@ namespace DungeonCrawl.Actors.Characters
         public int ObliviateCooldown = 0;
         public bool WandEquipped = false;
         public bool ObliviateUnlocked = false;
+        public int BlinkCooldown = 0;
+        public bool BlinkUnlocked = false;
         private Direction _direction;
 
         public List<Actor> Inventory = new List<Actor>();
@@ -114,19 +116,30 @@ namespace DungeonCrawl.Actors.Characters
                     }
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (BlinkUnlocked)
+                {
+                    if (BlinkCooldown < 1)
+                    {
+                        Launch("Blink");
+                    }
+                }
+            }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
             if (WandEquipped)
             {
-                UserInterface.Singleton.SetText($"E:{FlipendoCooldown} F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+                UserInterface.Singleton.SetText($"Q:{BlinkCooldown} E:{FlipendoCooldown} F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
             }
             else
             {
-                UserInterface.Singleton.SetText($"F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+                UserInterface.Singleton.SetText($"Q:{BlinkCooldown} F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
             }
            
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
             if (FlipendoCooldown > 0) FlipendoCooldown--;
             if (ObliviateCooldown > 0) ObliviateCooldown--;
+            if (BlinkCooldown > 0) BlinkCooldown--;
         }
 
         public override bool OnCollision(Actor anotherActor)
@@ -156,7 +169,92 @@ namespace DungeonCrawl.Actors.Characters
                 var spell = ActorManager.Singleton.Spawn<Obliviate>(Position);
                 spell.Direction = _direction;
             }
+            if (spellName == "Blink")
+            {
+                int distance = 5;
+                if (_direction == Direction.Up)
+                {
+                    var possiblePosition = (Position.x, Position.y + distance);
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                    }
+                    else
+                    {
+                        Position = possiblePosition;
+                        BlinkCooldown = 600;
+                    }
+                }
+                else if (_direction == Direction.Down)
+                {
+                var possiblePosition = (Position.x, Position.y - distance);
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                    }
+                    else
+                    {
+                            Position = possiblePosition;
+                            BlinkCooldown = 600;
+                    }
+                }
+                else if (_direction == Direction.Left)
+                {
+                var possiblePosition = (Position.x - distance, Position.y);
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                    }
+                    else
+                    {
+                        Position = possiblePosition;
+                        BlinkCooldown = 600;
+                    }
+                }
+                else if (_direction == Direction.Right)
+                {
+                    var possiblePosition = (Position.x + distance, Position.y);
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                        distance--;             
+                    }
+                    if (ActorManager.Singleton.GetActorAt(possiblePosition) is Wall)
+                    {
+                    }
+                    else
+                    {
+                        Position = possiblePosition;
+                        BlinkCooldown = 600;
+                    }
+                }
+            }
         }
+        
 
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";
