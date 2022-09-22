@@ -45,6 +45,11 @@ namespace Assets.Source.Actors.Projectile
 
         protected override void OnUpdate(float deltatime)
         {
+            if (ActorManager.Singleton.GetAnyActorAt(Position) == this)
+            {
+                ActorManager.Singleton._allActors.Remove(this);
+                ActorManager.Singleton.DestroyActor(this);
+            }
             LifeTime++;
             RemoveTimer--;
             if (LifeTime > 60)
