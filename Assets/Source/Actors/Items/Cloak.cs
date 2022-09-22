@@ -11,10 +11,10 @@ using DungeonCrawl.Actors.Items;
 
 namespace Assets.Source.Actors.Items
 {
-    public class Scroll : Item
+    public class Cloak : Item
     {
-        public override int DefaultSpriteId => 222;
-        public override string DefaultName => "Scroll";
+        public override int DefaultSpriteId => 178;
+        public override string DefaultName => "Cloak";
         public override bool Detectable => true;
         public override bool OnCollision(Actor anotherActor)
         {
@@ -22,10 +22,10 @@ namespace Assets.Source.Actors.Items
             {
                 Player player = (Player)anotherActor;
                 player.AddToInvetory(this);
-                UserInterface.Singleton.SetText("Obliviate Unlocked! Use F To Cast.", UserInterface.TextPosition.BottomCenter);
+                UserInterface.Singleton.SetText("Blink Unlocked! Use Q to cast.", UserInterface.TextPosition.BottomCenter);
                 CameraController.Singleton.Size -= 3;
-                player.DistanceTimer = 2;
-                player.ObliviateUnlocked = true;
+                player.DistanceTimer = 4;
+                player.BlinkUnlocked = true;
                 ActorManager.Singleton.DestroyActor(this);
             }
             return false;

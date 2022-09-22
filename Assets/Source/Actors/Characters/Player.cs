@@ -18,6 +18,8 @@ namespace DungeonCrawl.Actors.Characters
         public int ObliviateCooldown = 0;
         public bool WandEquipped = false;
         public bool ObliviateUnlocked = false;
+        public int BlinkCooldown = 0;
+        public bool BlinkUnlocked = false;
         private Direction _direction;
 
         public List<Actor> Inventory = new List<Actor>();
@@ -115,14 +117,28 @@ namespace DungeonCrawl.Actors.Characters
                     }
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (BlinkUnlocked)
+                {
+                    if (BlinkCooldown < 1)
+                    {
+                        Launch("Blink");
+                    }
+                }
+            }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);
             if (WandEquipped)
             {
-                UserInterface.Singleton.SetText($"E:{FlipendoCooldown} F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+                UserInterface.Singleton.SetText($"Q:{BlinkCooldown} E:{FlipendoCooldown} F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
             }
             else
             {
+
+                UserInterface.Singleton.SetText($"Q:{BlinkCooldown} F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+
                 UserInterface.Singleton.SetText($"F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+
 
             }
 
@@ -131,6 +147,7 @@ namespace DungeonCrawl.Actors.Characters
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
             if (FlipendoCooldown > 0) FlipendoCooldown--;
             if (ObliviateCooldown > 0) ObliviateCooldown--;
+            if (BlinkCooldown > 0) BlinkCooldown--;
         }
 
         public override bool OnCollision(Actor anotherActor)
@@ -160,7 +177,24 @@ namespace DungeonCrawl.Actors.Characters
                 var spell = ActorManager.Singleton.Spawn<Obliviate>(Position);
                 spell.Direction = _direction;
             }
+            if (spellName == "Blink")
+            {
+                var normalVector = Utilities.ToVector(_direction);
+                for (int i = 5; i > 2; i--)
+                {
+                    var possiblePosition = (Position.x + (normalVector.x * i), Position.y + (normalVector.y * i));
+                    if (!(ActorManager.Singleton.GetActorAt(possiblePosition) is Wall) && ActorManager.Singleton.GetAnyActorAt(possiblePosition) != null)
+                    {
+                        Position = possiblePosition;
+                        BlinkCooldown = 666;
+                        break;
+                    }
+                }
+            }
         }
+                
+        
+        
 
         public bool DisplayInventory()
         {
