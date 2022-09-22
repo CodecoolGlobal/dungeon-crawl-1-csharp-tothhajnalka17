@@ -7,6 +7,7 @@ using Assets.Source.Core;
 using Assets.Source.Actors.Items;
 using Assets.Source.Actors.Projectile;
 using System.Text;
+using DungeonCrawl.Actors.Items;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -19,7 +20,7 @@ namespace DungeonCrawl.Actors.Characters
         public bool WandEquipped = false;
         private Direction _direction;
 
-        public List<Actor> Inventory = new List<Actor>();
+        public List<Item> Inventory = new List<Item>();
 
         public Player()
         {
@@ -139,7 +140,7 @@ namespace DungeonCrawl.Actors.Characters
             Debug.Log("Oh no, I'm dead!");
         }
 
-        public void AddToInvetory(Actor item)
+        public void AddToInvetory(Item item)
         {
             Inventory.Add(item);
         }
