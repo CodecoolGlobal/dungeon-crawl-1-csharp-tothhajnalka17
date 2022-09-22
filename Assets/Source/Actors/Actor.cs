@@ -54,6 +54,10 @@ namespace DungeonCrawl.Actors
                     // Allowed to move
                     Position = targetPosition;
                 }
+                else
+                {
+                    OnCollision(actorAtTargetPosition);
+                }
             }
         }
 

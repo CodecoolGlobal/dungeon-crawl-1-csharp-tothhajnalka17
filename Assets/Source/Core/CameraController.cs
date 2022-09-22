@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using DungeonCrawl.Actors.Characters;
+using UnityEngine;
+using static DungeonCrawl.Actors.Characters.Character;
 
 namespace DungeonCrawl.Core
 {
@@ -21,7 +23,7 @@ namespace DungeonCrawl.Core
             set
             {
                 _position = value;
-                transform.position = new Vector3(value.x, value.y + 0.5f, -10);
+                transform.position = new Vector3(value.x, value.y, -10);
             }
         }
 
