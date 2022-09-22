@@ -20,7 +20,7 @@ namespace Assets.Source.Actors.Items
                 Player player = (Player)anotherActor;
                 player.AddToInvetory(this);
                 UserInterface.Singleton.SetText("You GrinGotts that key Hairy!", UserInterface.TextPosition.BottomCenter);
-                CameraController.Singleton.Size -= 2;
+                CameraController.Singleton.Size -= 1;
                 player.DistanceTimer = 3;
                 ActorManager.Singleton.DestroyActor(this);
             }
