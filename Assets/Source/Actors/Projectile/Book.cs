@@ -16,6 +16,7 @@ namespace Assets.Source.Actors.Projectile
 {
     public class Book : Projectile
     {
+        public int RemoveTimer = 2000;
         public override int DefaultSpriteId => 729;
         public override string DefaultName => "Book";
         public override bool Detectable => true;
@@ -45,10 +46,18 @@ namespace Assets.Source.Actors.Projectile
         protected override void OnUpdate(float deltatime)
         {
             LifeTime++;
+            RemoveTimer--;
             if (LifeTime > 60)
             {
+
                 TryMove(Direction);
                 LifeTime = 0;
+            }
+            if (RemoveTimer < 1)
+            {
+                Debug.Log("Book Despawned");
+                ActorManager.Singleton._allActors.Remove(this);
+                ActorManager.Singleton.DestroyActor(this);
             }
         }
     }
