@@ -16,6 +16,7 @@ namespace DungeonCrawl.Actors.Characters
         public int FlipendoCooldown = 0;
         public int ObliviateCooldown = 0;
         public bool WandEquipped = false;
+        public bool ObliviateUnlocked = false;
         private Direction _direction;
 
         public List<Actor> Inventory = new List<Actor>();
@@ -89,25 +90,28 @@ namespace DungeonCrawl.Actors.Characters
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                List<Actor> neighbours = new List<Actor>();
-                if (ObliviateCooldown < 1)
+                if (ObliviateUnlocked)
                 {
-                    for (int i = -1; i <= 1; i++)
+                    List<Actor> neighbours = new List<Actor>();
+                    if (ObliviateCooldown < 1)
                     {
-                        for (int j = -1; j <= 1; j++)
+                        for (int i = -1; i <= 1; i++)
                         {
-                            var position = (Position.x + i, Position.y + j);
-                            if (ActorManager.Singleton.GetActorAt(position) != null)
+                            for (int j = -1; j <= 1; j++)
                             {
-                                ActorManager.Singleton.Spawn<Obliviate>(position).OnCollision(ActorManager.Singleton.GetActorAt(position));
-                            }
-                            else
-                            {
-                                ActorManager.Singleton.Spawn<Obliviate>(position);
+                                var position = (Position.x + i, Position.y + j);
+                                if (ActorManager.Singleton.GetActorAt(position) != null)
+                                {
+                                    ActorManager.Singleton.Spawn<Obliviate>(position).OnCollision(ActorManager.Singleton.GetActorAt(position));
+                                }
+                                else
+                                {
+                                    ActorManager.Singleton.Spawn<Obliviate>(position);
+                                }
                             }
                         }
+                        ObliviateCooldown = 360;
                     }
-                    ObliviateCooldown = 360;
                 }
             }
             UserInterface.Singleton.SetText($"Health: {Health}", UserInterface.TextPosition.TopLeft);

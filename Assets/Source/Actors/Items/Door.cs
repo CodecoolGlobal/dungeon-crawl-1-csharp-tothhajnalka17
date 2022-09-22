@@ -30,7 +30,7 @@ namespace Assets.Source.Actors.Static
                         ActorManager.Singleton.DestroyActor(this);
                         ActorManager.Singleton.Spawn<OpenDoor>(this.Position);
                         UserInterface.Singleton.SetText("Keylohomora", UserInterface.TextPosition.BottomCenter);
-                        CameraController.Singleton.Size -= 2;
+                        CameraController.Singleton.Size -= 1;
                         player.DistanceTimer = 3;
                         break;
                     }
