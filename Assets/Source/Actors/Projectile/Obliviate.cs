@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using DungeonCrawl;
 using UnityEngine;
 using DungeonCrawl.Actors.Static;
+using Assets.Source.Actors.Static;
 
 namespace Assets.Source.Actors.Projectile
 {
@@ -34,6 +35,13 @@ namespace Assets.Source.Actors.Projectile
             if (anotherActor is Skeleton)
             {
                 var enemy = (Skeleton)anotherActor;
+                enemy.ApplyDamage(Damage);
+                ActorManager.Singleton._allActors.Remove(this);
+                ActorManager.Singleton.DestroyActor(this);
+            }
+            if (anotherActor is DestructableDoor)
+            {
+                var enemy = (DestructableDoor)anotherActor;
                 enemy.ApplyDamage(Damage);
                 ActorManager.Singleton._allActors.Remove(this);
                 ActorManager.Singleton.DestroyActor(this);
