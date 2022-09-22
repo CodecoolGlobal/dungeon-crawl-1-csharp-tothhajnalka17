@@ -72,12 +72,15 @@ namespace DungeonCrawl.Actors.Characters
                             MoveTimer = 250;
                             destination = (0, 0);
                         }
-                        else if (destination.Item2 - Position.y != 0 && destination.Item2 < Position.y)
+                        if (destination != (0, 0))
                         {
-                            Debug.Log("Player is Below me I need to move Down");
-                            TryMove(Direction.Down);
-                            MoveTimer = 250;
-                            destination = (0, 0);
+                        if (destination.Item2 - Position.y != 0 && destination.Item2 < Position.y)
+                            {
+                                Debug.Log("Player is Below me I need to move Down");
+                                TryMove(Direction.Down);
+                                MoveTimer = 250;
+                                destination = (0, 0);
+                            }
                         }
                     }
                     else
