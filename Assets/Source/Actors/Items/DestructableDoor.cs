@@ -34,7 +34,7 @@ namespace Assets.Source.Actors.Static
         }
         public void OnDeath()
         {
-            Debug.Log("Sajt");
+            Debug.Log("Destructable door destructed");
         }
     }
 }
