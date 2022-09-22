@@ -32,7 +32,7 @@ namespace Assets.Source.Actors.Static
             if (Cooldown < 1)
             {
                 Launch(4);
-                Cooldown = 600;
+                Cooldown = 1200;
             }
         }
         public void Launch(int mode)
