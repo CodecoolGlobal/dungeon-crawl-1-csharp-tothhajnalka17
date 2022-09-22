@@ -6,6 +6,7 @@ using Assets.Source.Actors.Static;
 using Assets.Source.Core;
 using Assets.Source.Actors.Items;
 using Assets.Source.Actors.Projectile;
+using System.Text;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -118,8 +119,11 @@ namespace DungeonCrawl.Actors.Characters
             else
             {
                 UserInterface.Singleton.SetText($"F:{ObliviateCooldown}", UserInterface.TextPosition.BottomRight);
+
             }
-           
+
+            DisplayInventory();
+
             CameraController.Singleton.Position = ActorManager.Singleton.GetActorAt(Position).Position;
             if (FlipendoCooldown > 0) FlipendoCooldown--;
             if (ObliviateCooldown > 0) ObliviateCooldown--;
@@ -152,6 +156,24 @@ namespace DungeonCrawl.Actors.Characters
                 var spell = ActorManager.Singleton.Spawn<Obliviate>(Position);
                 spell.Direction = _direction;
             }
+        }
+
+        public bool DisplayInventory()
+        {
+            StringBuilder InventoryText = new StringBuilder();
+            InventoryText.Append("Inventory:");
+            InventoryText.AppendLine();
+
+            for (var i = 0; i < Inventory.Count; i++)
+            {
+                InventoryText.Append(Inventory[i].DefaultName);
+                if (i < Inventory.Count - 1)
+                {
+                    InventoryText.Append(", ");
+                }
+            }
+            UserInterface.Singleton.SetText(InventoryText.ToString(), UserInterface.TextPosition.BottomLeft);
+            return true;
         }
 
         public override int DefaultSpriteId => 24;
