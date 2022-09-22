@@ -45,7 +45,7 @@ namespace Assets.Source.Actors.Projectile
         protected override void OnUpdate(float deltatime)
         {
             LifeTime++;
-            if (LifeTime > 36)
+            if (LifeTime > 60)
             {
                 TryMove(Direction);
                 LifeTime = 0;
