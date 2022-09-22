@@ -14,7 +14,7 @@ namespace Assets.Source.Actors.Items
     public class Scroll : Item
     {
         public override int DefaultSpriteId => 222;
-        public override string DefaultName => "Key";
+        public override string DefaultName => "Scroll";
         public override bool Detectable => true;
         public override bool OnCollision(Actor anotherActor)
         {
