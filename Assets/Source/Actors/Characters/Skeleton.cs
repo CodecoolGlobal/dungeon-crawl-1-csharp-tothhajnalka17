@@ -49,6 +49,14 @@ namespace DungeonCrawl.Actors.Characters
         protected override void OnDeath()
         {
             UserInterface.Singleton.SetText("Skeleton died.", UserInterface.TextPosition.BottomCenter);
+            foreach(var actor in ActorManager.Singleton._allActors)
+            {
+                if (actor is Player)
+                {
+                    var player = (Player)actor;
+                    player.SkeletonsKilled++;
+                }
+            }
         }
 
         protected override void OnUpdate(float deltaTime)
