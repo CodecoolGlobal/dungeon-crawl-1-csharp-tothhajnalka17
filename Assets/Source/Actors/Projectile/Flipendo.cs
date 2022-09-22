@@ -11,6 +11,7 @@ using DungeonCrawl.Actors.Static;
 using DungeonCrawl.Actors.Items;
 using DungeonCrawl;
 using UnityEngine;
+using Assets.Source.Actors.Static;
 
 namespace Assets.Source.Actors.Projectile
 {
@@ -31,9 +32,13 @@ namespace Assets.Source.Actors.Projectile
             {
                 var enemy = (Skeleton)anotherActor;
                 enemy.ApplyDamage(Damage);
+                ActorManager.Singleton._allActors.Remove(this);
+                ActorManager.Singleton.DestroyActor(this);
+                return false;
             }
-            if (anotherActor.OnCollision(this))
+            if (anotherActor is Teleport)
             {
+                
                 return false;
             }
             else
