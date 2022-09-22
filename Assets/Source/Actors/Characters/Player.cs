@@ -22,6 +22,7 @@ namespace DungeonCrawl.Actors.Characters
         public int BlinkCooldown = 0;
         public bool BlinkUnlocked = false;
         private Direction _direction;
+        public int SkeletonsKilled = 0;
 
         public List<Item> Inventory = new List<Item>();
 
@@ -158,7 +159,11 @@ namespace DungeonCrawl.Actors.Characters
 
         protected override void OnDeath()
         {
-            Debug.Log("Oh no, I'm dead!");
+            ActorManager.Singleton.DestroyAllActors();
+            var skeletonsKilled = SkeletonsKilled;
+            Player player = ActorManager.Singleton.Spawn<Player>(3, -3);
+            MapLoader.LoadMap(666);
+            UserInterface.Singleton.SetText($"Your kill count for this run: {skeletonsKilled}", UserInterface.TextPosition.MiddleCenter);
         }
 
         public void AddToInvetory(Item item)
